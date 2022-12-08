@@ -1,4 +1,4 @@
-# simple_google_map
+# Simple Google Map
 
 Flutter project (case study).
 
