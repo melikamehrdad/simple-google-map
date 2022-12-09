@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:simple_google_map/src/alert_dialog_list_widget.dart';
+import 'package:simple_google_map/src/alert_dialog_with_location_history.dart';
+import 'package:simple_google_map/src/random_point_generator.dart';
 import 'package:simple_google_map/src/text_button_widget.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -66,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () => showDialog<void>(
                   context: context,
                   barrierDismissible: false, // user must tap button!
-                  builder: (BuildContext context) => AlertDialogWithListWidget(
+                  builder: (BuildContext context) => AlertDialogWithLocationHistory(
                     locationHistory: positionHistory,
                   ),
                 ),
@@ -176,18 +179,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _someWhereRandomOnPressedButton() {
+    //Generate random location
+    Random random = Random();
+    var randomPosition = getRandomLocation(
+        LatLng(random.nextDouble(), random.nextDouble()), random.nextInt(100000000));
+
     //Back to main location
     setState(() {
       myMapController?.animateCamera(
         CameraUpdate.newCameraPosition(
-          const CameraPosition(
-            target: _mainLocation,
+          CameraPosition(
+            target: randomPosition,
           ),
         ),
       );
     });
 
     //Add position to position history
-    positionHistory.add(_mainLocation);
+    positionHistory.add(randomPosition);
   }
 }

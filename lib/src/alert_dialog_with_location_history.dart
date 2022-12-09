@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class AlertDialogWithListWidget extends StatelessWidget {
+class AlertDialogWithLocationHistory extends StatelessWidget {
   final List<LatLng> locationHistory;
-  const AlertDialogWithListWidget({Key? key, required this.locationHistory}) : super(key: key);
+  const AlertDialogWithLocationHistory({Key? key, required this.locationHistory}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,8 @@ class AlertDialogWithListWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text('Latitude: ${locationHistory[index].latitude}'),
                     Text('Longitude ${locationHistory[index].longitude}'),
